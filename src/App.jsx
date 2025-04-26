@@ -40,12 +40,26 @@ function App() {
       {noResults && !loading && <div className="no-results">No jobs found. Try a different search!</div>}
 
       <div className="jobs-list">
-        {jobs.map((job) => (
-          <div key={job.id} className="job-card">
-            <h2>{job.title}</h2>
-            <h3>{job.company_name}</h3>
-            <p>{job.category}</p>
-            <a href={job.url} target="_blank" rel="noopener noreferrer">View Job</a>
+        {jobs.map((job, index) => (
+          <div key={index} className="job-card">
+            <div className="job-card-header">
+              {job.employer_logo && (
+                <img
+                  src={job.employer_logo}
+                  alt="Company logo"
+                  className="company-logo"
+                />
+              )}
+              <div className="job-card-info">
+                <h2>{job.job_title}</h2>
+                <h3>{job.employer_name}</h3>
+                <p>{job.job_city}, {job.job_state}</p>
+              </div>
+            </div>
+            <p className="job-description">{job.job_description?.slice(0, 120)}...</p>
+            <a href={job.job_apply_link} target="_blank" rel="noopener noreferrer" className="view-job-button">
+              View Job
+            </a>
           </div>
         ))}
       </div>
